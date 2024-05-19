@@ -23,6 +23,7 @@ spec:
           volumeMounts:
             - name: env-volume
               mountPath: /etc/env
+              readOnly: false # Golang service needs write access
           env:
             - name: SECRET_KEYS
               value: "API_KEY,DB_PASSWORD"
@@ -32,5 +33,6 @@ spec:
           volumeMounts:
             - name: env-volume
               mountPath: /etc/env
+              readOnly: true # Node.js service only needs read access
           ports:
             - containerPort: 3000
