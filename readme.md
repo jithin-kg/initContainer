@@ -1,6 +1,6 @@
-docker build -t golang-init-service:1.0.0 .
+docker build -t golang-init-service:1.0.4 .
 
-docker build -t nodejs-app-service:1.0.0 .
+docker build -t nodejs-app-service:1.0.3 .
 
 
 # Set up your shell to use the Minikube Docker daemon

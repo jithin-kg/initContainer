@@ -22,7 +22,7 @@ func main() {
 
 	for _, key := range keys {
 		if value, ok := secretMap[key]; ok {
-			fileContent += fmt.Sprintf("%s=%s\n", key, value)
+			fileContent += fmt.Sprintf("%s=\"%s\"\n", key, value)
 		}
 	}
 	err := os.WriteFile("/etc/env/app.env", []byte(fileContent), 0644)
