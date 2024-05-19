@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      volumes:
+        - name: env-volume
+          emptyDir: {}
+      initContainers:
+        - name: golang-init-container
+          image: golang-init-service:1.0.0
+          volumeMounts:
+            - name: env-volume
+              mountPath: /etc/env
+          env:
+            - name: SECRET_KEYS
+              value: "API_KEY,DB_PASSWORD"
+      containers:
+        - name: nodejs-container
+          image: nodejs-app-service:1.0.1
+          volumeMounts:
+            - name: env-volume
+              mountPath: /etc/env
+          ports:
+            - containerPort: 3000
