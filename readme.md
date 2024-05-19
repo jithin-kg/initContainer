@@ -14,3 +14,27 @@ kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
 
 minikube service myapp-service
+
+
+to get pod name and containers name
+---------
+pods=$(kubectl get pods -o=jsonpath='{.items[*].metadata.name}')
+for pod in $pods; do
+    echo "Pod: $pod"
+    containers=$(kubectl get pod $pod -o=jsonpath='{.spec.containers[*].name}')
+    echo "Containers: $containers"
+done
+
+Steps to Check Memory Usage for emptyDir (Memory-Backed)
+------------
+kubectl exec -it <pod-name> -c <container-name> -- /bin/sh
+kubectl exec -it myapp-deployment-7f5f9c4d4f-mr5xg -c nodejs-container -- /bin/sh
+
+ Access the Pod
+ > kubectl exec -it <pod-name> -c <container-name> -- /bin/sh
+
+ Check Mounted Volumes
+> df -h /etc/env
+
+
+
